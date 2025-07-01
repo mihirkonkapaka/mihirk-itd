@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.utils.priority.HardwareQueue;
 import org.firstinspires.ftc.teamcode.utils.priority.PriorityMotor;
-import org.firstinspires.ftc.teamcode.utils.priority.PriorityServo;
+import org.firstinspires.ftc.teamcode.utils.priority.nPriorityServo;
 
 class Intake {
 
@@ -102,89 +102,72 @@ class Drivetrain {
 class Deposit {
 
     public HardwareMap hardwareMap;
-    public PriorityServo clawOpen, clawRotation, v4bar1, v4bar2, HExtension1, HExtension2;
+    public nPriorityServo clawOpen, clawRotation, v4bar, HExtension1, HExtension2;
 
     public Deposit(RobotHW robot) {
         hardwareMap = robot.hardwareMap;
 
-        clawOpen = new PriorityServo(
-                hardwareMap.get(Servo.class, "clawOpen"),
+
+        clawOpen = new nPriorityServo(
+                new Servo[] {hardwareMap.get(Servo.class, "clawOpen")},
                 "clawOpen",
-                PriorityServo.ServoType.SPEED,
+                nPriorityServo.ServoType.TORQUE,
                 1.0,
                 1.0,
                 1.0,
-                1.0,
-                false,
+                new boolean[] {false},
                 1.0,
                 1.0
         );
 
-        clawRotation = new PriorityServo(
-                hardwareMap.get(Servo.class, "clawRotation"),
+        clawRotation = new nPriorityServo(
+                new Servo[] {hardwareMap.get(Servo.class, "clawRotation")},
                 "clawRotation",
-                PriorityServo.ServoType.TORQUE,
+                nPriorityServo.ServoType.TORQUE,
                 1.0,
                 1.0,
                 1.0,
-                1.0,
-                false,
-                1.0,
-                1.0
-        );
-
-        v4bar1 = new PriorityServo(
-                hardwareMap.get(Servo.class, "v4bar1"),
-                "v4bar1",
-                PriorityServo.ServoType.TORQUE,
-                1.0,
-                1.0,
-                1.0,
-                1.0,
-                false,
+                new boolean[] {false},
                 1.0,
                 1.0
         );
 
-        v4bar2 = new PriorityServo(
-                hardwareMap.get(Servo.class, "v4bar2"),
-                "v4bar2",
-                PriorityServo.ServoType.TORQUE,
+        v4bar = new nPriorityServo(
+                new Servo[] {hardwareMap.get(Servo.class, "v4bar1"), hardwareMap.get(Servo.class, "v4bar2")},
+                "v4bar",
+                nPriorityServo.ServoType.TORQUE,
                 1.0,
                 1.0,
                 1.0,
-                1.0,
-                false,
+                //TODO: actually figure out what the signs on them need to be
+                new boolean[] {false, true},
                 1.0,
                 1.0
         );
 
-        HExtension1 = new PriorityServo(
-                hardwareMap.get(Servo.class, "HExtension1"),
+        HExtension1 = new nPriorityServo(
+                new Servo[] {hardwareMap.get(Servo.class, "HExtension1")},
                 "HExtension1",
-                PriorityServo.ServoType.TORQUE,
+                nPriorityServo.ServoType.TORQUE,
                 1.0,
                 1.0,
                 1.0,
-                1.0,
-                false,
+                new boolean[] {false},
                 1.0,
                 1.0
         );
 
-        HExtension2 = new PriorityServo(
-                hardwareMap.get(Servo.class, "HExtension2"),
+        HExtension2 = new nPriorityServo(
+                new Servo[] {hardwareMap.get(Servo.class, "HExtension2")},
                 "HExtension2",
-                PriorityServo.ServoType.SPEED,
+                nPriorityServo.ServoType.TORQUE,
                 1.0,
                 1.0,
                 1.0,
-                1.0,
-                false,
+                new boolean[] {false},
                 1.0,
                 1.0
         );
-
 
     }
 
